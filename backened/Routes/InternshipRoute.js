@@ -29,6 +29,16 @@ router.post("/",async(req,res)=>{
 
 })
     
+
+router.get("/",async (req,res)=>{
+    try {
+        const data=await internship.find();
+        res.json(data) .status(200)
+    } catch (error) {
+        console.log(error);
+        res.status(404).json({error:"Internal server error "})
+    }
+})
 router.get("/:id", async (req,res)=>{
     const {id}=req.params;
     try {

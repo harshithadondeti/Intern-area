@@ -6,10 +6,10 @@ const adminPassword='adminpassword'
 router.post("/adminLogin",(req,res)=>{
     const {username,password}=req.body
     if (username===adminUsername|| password===adminPassword){
-        res.send("Admin is here")
+        res.json({status:"success"})
     }
     else{
-        res.status(401).send("Unauthrized")
+        res.status(401).json({status:"failed"})
     }
 })
 module.exports=router

@@ -25,7 +25,7 @@ router.get("/",async(req,res)=>{
         const data=await User.find();
         res.json(data).status(200)
     } catch(error){
-        console.log(err);
+        console.log(error);
         res.status(404).json({error:"Internal server error"})
     }
 })
@@ -35,15 +35,30 @@ router.get("/:id",async(req,res)=>{
         const data=await User.findOne({fid:id});
 
         if(!data){
-            req.status(404).json({error:"Application not found"})
+            res.status(404).json({error:"Application not found"})
         } else
         res.json(data).status(200)
     } catch(error){
-        console.log(err);
+        console.log(error);
         res.status(404).json({error:"Internal server error"})
     }
 })
 
+router.put("/:id",async(req,res)=>{
+    const {id}=req.params;
+    const newdata=req.body;
+    try{
+        const data=await User.findByIdAndUpdate(id,{$set:newdata},{new:true});
+
+        if(!data){
+            req.status(404).json({error:"Unable to update data"})
+        } else
+        res.json(data).status(200)
+    } catch(error){
+        console.log(error);
+        res.status(404).json({error:"Internal server error"})
+    }
+})
 
 
 module.exports=router
