@@ -85,6 +85,15 @@ function Navbar() {
                     <img src={user?.photo} alt="profile pic" classname='rounded-full w-11 h-2' id="picpro"/>
                   </Link>
                 </div>
+                <div className=" rounded-3xl p-2 ">
+                  <Link to={"/blog"}>
+                    Blog
+                  </Link>
+                  <Link to={"/friends"}>
+                    Friends
+                  </Link>
+                  <Link to= {"/subscription"}><button className="btn2">Subscribe</button></Link>
+                </div>
                 <button  onClick={logoutfunction}>Logout<i class="bi bi-box-arrow-right"></i></button>
               </div>
             ):(

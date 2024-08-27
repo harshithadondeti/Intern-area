@@ -64,7 +64,7 @@ function JobAvl() {
           <div className=" filter-section m-2 ">
 
             <p className="text-centre ">
-              <i class="bi bi-funnel text-blue-400 "></i>Filter
+              <i onClick={showDiv} class="bi bi-funnel text-blue-400 "></i>Filter
             </p>
 
             <div className=" flex flex-col ml-2">

@@ -17,6 +17,10 @@ function Profile() {
                     <h3 className='text-center text-xl text-gray-900'>{user?.name}</h3>
                  </div>
                  <div className='text-xs my-3'>
+                 <h3 className='text-xl font-bold'>{user.userType}</h3>
+                
+                 </div>
+                 <div className='text-xs my-3'>
                  <h3 className='text-xl font-bold'>UID</h3>
                     <h3 className='text-center text-lg text-gray-900'>{user?.uid}</h3>
                  </div>

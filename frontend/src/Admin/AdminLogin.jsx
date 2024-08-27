@@ -10,6 +10,7 @@ function AdminLogin() {
     const [username,setusername]=useState("")
     const [password,setPassword]=useState("")
 const navigate=useNavigate()
+
     const LoginAdmin= async()=>{
 if (email===""||password==="") {
     alert("fill the blanks")
@@ -20,11 +21,15 @@ else{
         password:password
     }
     axios.post("http://localhost:5000/api/admin/adminLogin",bodyjson).then((res)=>{
-      
+      if(res.data.status==="success"){
+        
         signInWithEmailAndPassword(auth,email,password).then((res)=>{
-          alert("success")
+            alert("success")
           navigate("/adminpanel")
         })
+      }else{
+        alert("Invalid username or password")
+      }
        
     }).catch((err)=>{
         console.log(err)

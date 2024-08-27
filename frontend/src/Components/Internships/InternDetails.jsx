@@ -24,7 +24,7 @@ function InternDetails() {
   const [data,setData] =useState([])
 useEffect(()=>{
    const fetchData= async()=>{
-      const response=await axios.get('http://localhost:5000/api/internship/${id}')
+      const response=await axios.get(`http://localhost:5000/api/internship/${id}`)
       setData(response.data)
 
       const {company,category}=response.data;

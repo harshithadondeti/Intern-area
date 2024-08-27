@@ -12,7 +12,7 @@ import Register from './Components/auth/Register.jsx';
 import Profile from './Components/profile/profile.jsx';
 import Login from './Components/auth/Login.jsx';
 
-import{Routes,Route, Navigate} from "react-router-dom";
+import{Routes,Route, Navigate, json} from "react-router-dom";
 import {selectUser} from "./feature/UserSlice"
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,10 +29,14 @@ import UserApplication from './Components/profile/UserApplication.jsx';
 import Blog from './Components/Blog/Blog.jsx';
 import Friends from './Components/Friends/Friends.jsx';
 import axios from 'axios';
+import Subscription from './Components/Subscription/Subscription.jsx';
+import UploadPost from './Components/Blog/UploadPost.jsx';
+
 
 
 
 function App() {
+
   const user=useSelector(selectUser);
   let usertype="user"
   const adminemail="dondetirani61@gmail.com"
@@ -44,12 +48,13 @@ function App() {
         usertype="admin"
       }
       if(authUser){
-   const res= await axios.get(`http://localhost:5000/api/user/${authUser.uid}`)
+   const res= await axios.get(`http://localhost:5000/api/User/${authUser.uid}`)
    const mongodata=res.data;
       dispatch(login({
-        uid:authUser.uid,
-        photo:authUser.photoURL,
-          name:authUser.displayName,
+            uid:authUser.uid,
+            fid:authUser.uid,
+            photo:authUser.photoURL,
+            name:authUser.displayName,
             email:authUser.email,
             userType:usertype,
             friends:mongodata.friends,
@@ -58,9 +63,28 @@ function App() {
             n_posts:mongodata.n_posts,
             allowed_posts:mongodata.allowed_posts,
       }))
+      console.log("sate change")
+
+      localStorage.setItem("user",JSON.stringify({
+            uid:authUser.uid,
+            fid:authUser.uid,
+            photo:authUser.photoURL,
+            name:authUser.displayName,
+            email:authUser.email,
+            userType:usertype,
+            friends:mongodata.friends,
+            requests:mongodata.requests,
+            IsStarUser:mongodata.IsStarUser,
+            n_posts:mongodata.n_posts,
+            allowed_posts:mongodata.allowed_posts,
+
+      }))
+
+
     }
   else{
     dispatch(logout())
+    localStorage.setItem("user",JSON.stringify({}))
   }
   })
 },[dispatch]);
@@ -100,7 +124,10 @@ const Usercheck=({children})=>{
       <Route path='/UserapplicationDetail' element={<UserapplicationDetail/>}/>
        <Route path='/userapplication' element={<UserApplication/>}/>
        <Route path='/blog' element={<Blog/>}/>
+       <Route path='/addpost' element={<UploadPost/>}/>
        <Route path='/friends' element={<Friends/>}/>
+       <Route path='/subscription' element={<Subscription/>}/>
+
 
      </Routes>
      
